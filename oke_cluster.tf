@@ -1,6 +1,5 @@
 ## Copyright © 2022, Oracle and/or its affiliates. 
 ## All rights reserved. The Universal Permissive License (UPL), Version 1.0 as shown at http://oss.oracle.com/licenses/upl
-
 module "oci-oke" {
   source                            = "github.com/oracle-devrel/terraform-oci-arch-oke"
   tenancy_ocid                      = var.tenancy_ocid
@@ -26,5 +25,9 @@ module "oci-oke" {
   lb_subnet_id                      = oci_core_subnet.OKE_lb_subnet.id
   is_nodepool_subnet_public         = true
   nodepool_subnet_id                = oci_core_subnet.OKE_nodepool_subnet.id
+  node_pool_name                    = "Laravel_Node_Pool"
+  enable_autoscaling                = true
+  autoscaling_min_nodes             = 1
+  autoscaling_max_nodes             = 5
   defined_tags                      = { "${oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name}.${oci_identity_tag.ArchitectureCenterTag.name}" = var.release }
 }
